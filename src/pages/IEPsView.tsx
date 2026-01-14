@@ -11,18 +11,26 @@ const initialIEPs: IEP[] = [
     id: '1',
     studentId: '1',
     studentName: 'Marcus Lee',
-    status: 'upcoming',
-    meetingDate: new Date('2026-01-25'),
+    status: 'active',
+    startDate: new Date('2025-01-25'),
+    endDate: new Date('2026-01-24'),
     annualReviewDate: new Date('2026-01-25'),
+    triennialDate: new Date('2028-01-25'),
+    frequency: '2x weekly',
+    duration: 30,
+    location: 'speech-room',
+    groupSize: 'individual',
+    serviceModel: 'pull-out',
+    minutesPerWeek: 60,
+    goals: [],
     notes: 'Annual review - update articulation goals',
   },
 ];
 
 const statusConfig = {
-  upcoming: { label: 'Upcoming', color: 'bg-yellow-100 text-yellow-800' },
-  drafted: { label: 'Drafted', color: 'bg-blue-100 text-blue-800' },
-  scheduled: { label: 'Scheduled', color: 'bg-purple-100 text-purple-800' },
-  completed: { label: 'Completed', color: 'bg-green-100 text-green-800' },
+  'draft': { label: 'Draft', color: 'bg-yellow-100 text-yellow-800' },
+  'active': { label: 'Active', color: 'bg-green-100 text-green-800' },
+  'expired': { label: 'Expired', color: 'bg-red-100 text-red-800' },
 };
 
 export function IEPsView() {
@@ -65,7 +73,7 @@ export function IEPsView() {
                   <div>
                     <CardTitle>{iep.studentName}</CardTitle>
                     <p className="text-sm text-muted-foreground mt-1">
-                      Meeting: {formatDate(iep.meetingDate)}
+                      Annual Review: {formatDate(iep.annualReviewDate)}
                     </p>
                   </div>
                   <Badge className={`${statusConf.color} border-0`}>{statusConf.label}</Badge>

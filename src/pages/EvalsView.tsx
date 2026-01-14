@@ -20,7 +20,7 @@ const initialEvals: Eval[] = [
     studentName: 'Emma Johnson',
     type: 'initial',
     status: 'testing',
-    dueDate: new Date('2026-02-15'),
+    calculatedDueDate: new Date('2026-02-15'),
     scheduledDate: new Date('2026-01-20'),
     notes: 'Parent concern: articulation',
     tasks: [
@@ -36,16 +36,18 @@ const initialEvals: Eval[] = [
 ];
 
 const statusConfig = {
-  scheduled: { label: 'Scheduled', color: 'bg-blue-100 text-blue-800' },
-  testing: { label: 'Testing', color: 'bg-yellow-100 text-yellow-800' },
-  writing: { label: 'Writing Report', color: 'bg-purple-100 text-purple-800' },
-  completed: { label: 'Completed', color: 'bg-green-100 text-green-800' },
+  'referral': { label: 'Referral', color: 'bg-gray-100 text-gray-800' },
+  'consent-sent': { label: 'Consent Sent', color: 'bg-blue-100 text-blue-800' },
+  'consent-received': { label: 'Consent Received', color: 'bg-blue-100 text-blue-800' },
+  'testing': { label: 'Testing', color: 'bg-yellow-100 text-yellow-800' },
+  'writing': { label: 'Writing Report', color: 'bg-purple-100 text-purple-800' },
+  'completed': { label: 'Completed', color: 'bg-green-100 text-green-800' },
 };
 
 const typeLabels = {
   initial: 'Initial Evaluation',
   triennial: 'Triennial',
-  'reeval': 'Re-Evaluation',
+  're-eval': 'Re-Evaluation',
 };
 
 export function EvalsView() {
@@ -81,8 +83,8 @@ export function EvalsView() {
       studentId: crypto.randomUUID(),
       studentName: newEval.studentName,
       type: newEval.type,
-      status: 'scheduled',
-      dueDate: newEval.dueDate ? new Date(newEval.dueDate) : undefined,
+      status: 'referral',
+      calculatedDueDate: newEval.dueDate ? new Date(newEval.dueDate) : undefined,
       notes: newEval.notes,
       tasks: [
         { id: crypto.randomUUID(), description: 'Send consent forms', completed: false },
@@ -204,9 +206,9 @@ export function EvalsView() {
                       <Badge variant="outline">{typeLabels[evaluation.type]}</Badge>
                       <Badge className={`${statusConf.color} border-0`}>{statusConf.label}</Badge>
                     </div>
-                    {evaluation.dueDate && (
+                    {evaluation.calculatedDueDate && (
                       <p className="text-sm text-muted-foreground mt-2">
-                        Due: {formatDate(evaluation.dueDate)}
+                        Due: {formatDate(evaluation.calculatedDueDate)}
                       </p>
                     )}
                   </div>

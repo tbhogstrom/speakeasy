@@ -13,8 +13,17 @@ const initialEntries: BillingEntry[] = [
     studentId: '1',
     studentName: 'Emma Johnson',
     date: new Date('2026-01-13'),
-    minutes: 30,
-    serviceType: 'direct',
+    timeIn: '09:00 AM',
+    timeOut: '09:30 AM',
+    duration: 30,
+    medicaidId: 'MC123456789',
+    cptCode: '92507',
+    serviceType: 'individual',
+    activitiesPerformed: 'Articulation therapy',
+    goalsAddressed: ['goal-1-1'],
+    studentResponse: 'Good participation',
+    providerName: 'Jane Smith',
+    providerCredentials: 'CCC-SLP',
     billed: false,
   },
   {
@@ -22,17 +31,25 @@ const initialEntries: BillingEntry[] = [
     studentId: '2',
     studentName: 'Marcus Lee',
     date: new Date('2026-01-13'),
-    minutes: 45,
-    serviceType: 'direct',
+    timeIn: '10:00 AM',
+    timeOut: '10:45 AM',
+    duration: 45,
+    medicaidId: 'MC987654321',
+    cptCode: '92508',
+    serviceType: 'group',
+    groupSize: 3,
+    activitiesPerformed: 'Group therapy session',
+    goalsAddressed: ['goal-2-1'],
+    studentResponse: 'Engaged well',
+    providerName: 'Jane Smith',
+    providerCredentials: 'CCC-SLP',
     billed: false,
   },
 ];
 
 const serviceTypeLabels = {
-  direct: 'Direct Service',
-  consultation: 'Consultation',
-  evaluation: 'Evaluation',
-  'iep-meeting': 'IEP Meeting',
+  individual: 'Individual',
+  group: 'Group',
 };
 
 export function BillingView() {
@@ -43,7 +60,7 @@ export function BillingView() {
     setEntries(entries.map((entry) => (entry.id === id ? { ...entry, billed: true } : entry)));
   };
 
-  const unbilledMinutes = entries.filter((e) => !e.billed).reduce((sum, e) => sum + e.minutes, 0);
+  const unbilledMinutes = entries.filter((e) => !e.billed).reduce((sum, e) => sum + e.duration, 0);
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
@@ -91,7 +108,7 @@ export function BillingView() {
                   <p className="font-medium">{maskPII(entry.studentName, 'name')}</p>
                   <div className="flex gap-2 mt-1">
                     <Badge variant="outline">{serviceTypeLabels[entry.serviceType]}</Badge>
-                    <Badge variant="outline">{entry.minutes} min</Badge>
+                    <Badge variant="outline">{entry.duration} min</Badge>
                     <span className="text-sm text-muted-foreground">{formatDate(entry.date)}</span>
                   </div>
                 </div>
