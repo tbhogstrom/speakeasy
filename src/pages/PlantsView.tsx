@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Plant } from '@/types/garden';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { Search } from 'lucide-react';
 
 const initialPlants: Plant[] = [

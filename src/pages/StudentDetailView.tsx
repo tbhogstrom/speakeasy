@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -14,8 +14,6 @@ import {
   Users,
   Clock,
   Target,
-  TrendingUp,
-  Plus,
 } from 'lucide-react';
 import { sampleStudents, sampleIEPs, sampleSessions } from '@/data/sampleData';
 import { SessionEntryDialog } from '@/components/session/SessionEntryDialog';

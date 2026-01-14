@@ -11,6 +11,8 @@ const initialScreenings: Screening[] = [
     id: '1',
     studentName: 'Olivia Martinez',
     grade: 'Kindergarten',
+    screeningType: 'mass-kindergarten',
+    screener: 'Ms. Anderson',
     date: new Date('2026-01-20'),
     status: 'scheduled',
   },
@@ -18,8 +20,10 @@ const initialScreenings: Screening[] = [
     id: '2',
     studentName: 'Noah Chen',
     grade: '2nd Grade',
+    screeningType: 'individual-referral',
+    screener: 'Ms. Anderson',
     status: 'completed',
-    result: 'refer',
+    result: 'refer-eval',
     notes: 'Articulation concerns - refer for eval',
   },
 ];
@@ -32,8 +36,9 @@ const statusConfig = {
 
 const resultConfig = {
   pass: { label: 'Pass', color: 'bg-green-100 text-green-800' },
-  refer: { label: 'Refer', color: 'bg-red-100 text-red-800' },
-  monitor: { label: 'Monitor', color: 'bg-yellow-100 text-yellow-800' },
+  'refer-eval': { label: 'Refer for Evaluation', color: 'bg-red-100 text-red-800' },
+  'rti-tier2': { label: 'RTI Tier 2', color: 'bg-yellow-100 text-yellow-800' },
+  'rescreen': { label: 'Rescreen', color: 'bg-blue-100 text-blue-800' },
 };
 
 export function ScreeningsView() {

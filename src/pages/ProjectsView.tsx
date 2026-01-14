@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Plus, CheckCircle2, Circle } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 interface ProjectTask {
   id: string;

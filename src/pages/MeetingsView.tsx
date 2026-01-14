@@ -10,35 +10,43 @@ const initialMeetings: Meeting[] = [
   {
     id: '1',
     title: 'Emma Johnson - Initial IEP',
-    type: 'iep',
-    studentName: 'Emma Johnson',
-    status: 'to-schedule',
+    type: 'initial-iep',
+    studentId: '1',
+    status: 'needs-scheduling',
+    requiredAttendees: [],
     notes: 'Need to schedule after eval is complete',
   },
   {
     id: '2',
     title: 'Marcus Lee - Annual Review',
-    type: 'iep',
-    studentName: 'Marcus Lee',
-    date: new Date('2026-01-25'),
+    type: 'annual-iep',
+    studentId: '2',
+    confirmedDate: new Date('2026-01-25'),
     time: '2:00 PM',
     location: 'Conference Room B',
-    status: 'scheduled',
+    status: 'confirmed',
+    requiredAttendees: [],
   },
 ];
 
 const typeConfig = {
-  iep: { label: 'IEP', color: 'bg-purple-100 text-purple-800' },
+  'initial-iep': { label: 'Initial IEP', color: 'bg-purple-100 text-purple-800' },
+  'annual-iep': { label: 'Annual IEP', color: 'bg-blue-100 text-blue-800' },
+  'triennial': { label: 'Triennial', color: 'bg-indigo-100 text-indigo-800' },
+  'iep-amendment': { label: 'IEP Amendment', color: 'bg-purple-100 text-purple-800' },
+  'eligibility': { label: 'Eligibility', color: 'bg-yellow-100 text-yellow-800' },
+  '504': { label: '504 Meeting', color: 'bg-orange-100 text-orange-800' },
+  'rti-team': { label: 'RTI Team', color: 'bg-green-100 text-green-800' },
   'parent-conference': { label: 'Parent Conference', color: 'bg-blue-100 text-blue-800' },
-  'team-meeting': { label: 'Team Meeting', color: 'bg-green-100 text-green-800' },
-  evaluation: { label: 'Evaluation', color: 'bg-yellow-100 text-yellow-800' },
-  other: { label: 'Other', color: 'bg-gray-100 text-gray-800' },
+  'other': { label: 'Other', color: 'bg-gray-100 text-gray-800' },
 };
 
 const statusConfig = {
-  'to-schedule': { label: 'To Schedule', color: 'bg-red-100 text-red-800' },
-  scheduled: { label: 'Scheduled', color: 'bg-green-100 text-green-800' },
-  completed: { label: 'Completed', color: 'bg-gray-100 text-gray-800' },
+  'needs-scheduling': { label: 'To Schedule', color: 'bg-red-100 text-red-800' },
+  'notice-sent': { label: 'Notice Sent', color: 'bg-yellow-100 text-yellow-800' },
+  'confirmed': { label: 'Confirmed', color: 'bg-green-100 text-green-800' },
+  'completed': { label: 'Completed', color: 'bg-gray-100 text-gray-800' },
+  'cancelled': { label: 'Cancelled', color: 'bg-red-100 text-red-800' },
 };
 
 export function MeetingsView() {
@@ -49,8 +57,8 @@ export function MeetingsView() {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
 
-  const toSchedule = meetings.filter((m) => m.status === 'to-schedule');
-  const scheduled = meetings.filter((m) => m.status === 'scheduled');
+  const toSchedule = meetings.filter((m) => m.status === 'needs-scheduling');
+  const scheduled = meetings.filter((m) => m.status === 'confirmed' || m.status === 'notice-sent');
 
   return (
     <div className="space-y-6">
@@ -90,9 +98,6 @@ export function MeetingsView() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle className="text-lg">{meeting.title}</CardTitle>
-                        {meeting.studentName && (
-                          <p className="text-sm text-muted-foreground mt-1">{meeting.studentName}</p>
-                        )}
                       </div>
                       <div className="flex flex-col gap-2">
                         <Badge className={`${typeConf.color} border-0`}>{typeConf.label}</Badge>
@@ -127,7 +132,7 @@ export function MeetingsView() {
                         <CardTitle className="text-lg">{meeting.title}</CardTitle>
                         <div className="mt-2 space-y-1">
                           <p className="text-sm text-muted-foreground">
-                            {formatDate(meeting.date)} {meeting.time && `• ${meeting.time}`}
+                            {formatDate(meeting.confirmedDate)} {meeting.time && `• ${meeting.time}`}
                           </p>
                           {meeting.location && (
                             <p className="text-sm text-muted-foreground">{meeting.location}</p>
